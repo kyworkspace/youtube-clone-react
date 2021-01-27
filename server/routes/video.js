@@ -4,6 +4,7 @@ const router = express.Router();
 
 const { auth } = require("../middleware/auth");
 const multer = require("multer");
+const ffmpeg = require("fluent-ffmpeg");
 //=================================
 //             Video
 //=================================
@@ -41,6 +42,46 @@ router.post('/uploadfiles',(req,res)=>{
             url : res.req.file.path, //업로드 폴더 경로를 클라이언트에 보냄
             fileName : res.req.file.filename //파일명
         })
+    })
+})
+
+router.post('/thumbnail',(req,res)=>{
+    let filePath = "";
+    let fileDuration = "";
+
+    //비디오 정보 가져오기
+    ffmpeg.ffprobe(req.body.url,function (err,metadata){ 
+        //ffprobe는 ffmpeg 받을때 같이 딸려오는것
+        //console.dir(metadata);
+        //console.log(metadata.format.duration);
+        fileDuration = metadata.format.duration;
+    })
+    
+    // 썸네일 생성
+    ffmpeg(req.body.url) //클라이언트에서 들어온 비디오저장 경로
+    .on('filenames',function(filenames){ //비디오 썸네일 파일명 셍성
+        console.log("Will generate "+filenames.join(', '));
+        console.log(filenames)
+
+        filePath = "uploads/thumbnails/"+filenames[0];
+    })
+    .on('end',function(){ //썸네일이 전부 생성되고 난 다음에 무엇을 할것인지
+        console.log("ScreenShot Taken");
+        return res.json({
+            success:true
+            , url : filePath 
+            , fileDuration:fileDuration
+        })
+    })
+    .on('error',function(err){ //에러가 났을시
+        console.error(err);
+        return res.json({success:false,err})
+    })
+    .screenshot({ //
+        count : 3, //3개의 썸네일 가능
+        folder : "uploads/thumbnails",//업로드 경로
+        size : '320x240', //사이즈
+        filname : 'thumbnail-%b.png' //파일명 %b는 extension을 뺀 파일 네임
     })
 })
 
