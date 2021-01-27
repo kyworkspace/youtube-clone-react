@@ -33,3 +33,5 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
 
   1. 썸네일도 서버에 저장
   2. 파일경로를 클라로 보내서 이미지를 동영상 옆에 표출
+  ![제목 없음](https://user-images.githubusercontent.com/45280952/105975244-15cbab80-60d2-11eb-8599-569ed8733e37.png)
+
