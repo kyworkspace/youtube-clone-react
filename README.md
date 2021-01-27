@@ -4,13 +4,13 @@
 
 위 주소를 참고하여 내가 만든 보일러플레이트를 수정함
 ### Video Upload
-
-  npm install react-dropzone --save
-
   #### 동영상 드랍존 라이브러리 설치
+
+    npm install react-dropzone --save
+
   위치는 client 패키지에 설치하고 VideoUploadPage 에서 구현  
 
-  npm install multer --save
+    npm install multer --save
 
   위치는 server 디렉토리에 저장
   onDrop =>
