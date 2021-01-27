@@ -9,6 +9,7 @@
     npm install react-dropzone --save
 
   위치는 client 패키지에 설치하고 VideoUploadPage 에서 구현  
+  아래는 파일 업로드할때 쓰는 라이브러리 MULTER
 
     npm install multer --save
 
