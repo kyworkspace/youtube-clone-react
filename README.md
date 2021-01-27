@@ -9,3 +9,14 @@
 
   동영상 드랍존 라이브러리 설치
   위치는 client 패키지에 설치하고 VideoUploadPage 에서 구현
+
+
+  npm install multer --save
+
+  위치는 server 디렉토리에 저장
+  onDrop =>
+  api를 보내게 되면 server의 index.js 로 갔다가
+  37번째 줄의 path 설정에 따라 Video.js로  이동함
+
+  uploads 라는 폴더를 루트 폴더에 추가해줘야함.
+  해당 경로에 관한 설정은 server의 video.js에 적어둠
