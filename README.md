@@ -68,3 +68,6 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
     })
 
   duration css는 index.css에 설정해둠
+  ![LandingPage_video_List](https://user-images.githubusercontent.com/45280952/106086984-74db0000-6166-11eb-9e47-a476d33893be.png)
+
+  
