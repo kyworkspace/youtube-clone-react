@@ -83,4 +83,14 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   게시자 writer 정보가 없으면 화면이 튕기게 되어버려서 아이디 정보를 불러오기 까지 ...Loading 화면이 나오도록 수정함
 
   ### Detail Side menu
-  
+  메뉴섹션을 따로 만듬 ...../views/VideoDetailPage/Section/SideVideo  
+  LandingPage에서 쓴 api를 복사해서 씀.
+
+  ### 구독(Subscribe) 모델 만들기
+  1. 모델 만들기 
+    - 누구에게 하는지 (UserTo)
+    - 누구로부터 하는지 (UserFrom)
+  2. 구독을 누를때 해당 업로더를 구독하는 사람 숫자 불러오기
+  3. 내가 이 비디오를 업로드한 유저를 구독하는지 가져오기
+
+  - 컴포넌트를 만들어서 적용
