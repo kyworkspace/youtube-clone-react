@@ -35,3 +35,14 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   2. 파일경로를 클라로 보내서 이미지를 동영상 옆에 표출
   ![제목 없음](https://user-images.githubusercontent.com/45280952/105975244-15cbab80-60d2-11eb-8599-569ed8733e37.png)
 
+  ### MONGO DB
+  1. Table == Collection
+  2. row == Document
+  3. Column == Field
+
+  #### useSelector from react-redux
+  1. 스토어에 있는 정보 가져옴 ( 로그인 한 유저 정보)
+
+    const user = useSelector(state=>state.user); 
+
+  State에 user 라는 이름으로 등록된 store 객체를 가져온다는 뜻(VideoUPloadPage.js 참조)

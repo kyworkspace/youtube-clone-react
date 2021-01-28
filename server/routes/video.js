@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-//const { Video } = require("../models/Video");
+const { Video } = require("../models/Video");
 
 const { auth } = require("../middleware/auth");
 const multer = require("multer");
@@ -31,7 +31,7 @@ const upload = multer({storage:storage}).single("file");
 
 
 router.post('/uploadfiles',(req,res)=>{
-    // 비디오를 서버에 저장한다.
+    // 비디오 파일을 루트 폴더에 업로드 한다.
     upload(req,res,err=>{
         if(err){
             //client 의 videoUploadPage에서 Line.52 에서 success true로 갈지 아닐지 판단
@@ -43,6 +43,16 @@ router.post('/uploadfiles',(req,res)=>{
             fileName : res.req.file.filename //파일명
         })
     })
+})
+
+router.post('/uploadVideo',(req,res)=>{
+    // 비디오 정보를 서버에 저장한다.
+    const video = new Video(req.body); //<== client에서 보낸 모든 Variable이 body에 담긴 상태
+
+    video.save((err,doc)=>{//객체정보를 서버에 저장
+        if(err) return res.json({success:false,err})
+        res.status(200).json({success:true});
+    }); 
 })
 
 router.post('/thumbnail',(req,res)=>{
