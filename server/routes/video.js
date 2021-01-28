@@ -55,6 +55,17 @@ router.post('/uploadVideo',(req,res)=>{
     }); 
 })
 
+router.get('/getVideos',(req,res)=>{
+    //비디오 목록을 가져온다
+    //Video 컬렉션 안에 있는 모든 비디오를 가져옴
+    Video.find()
+    .populate('writer') 
+    .exec((err,videos)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).json({success:true,videos})
+    })
+})
+
 router.post('/thumbnail',(req,res)=>{
     let filePath = "";
     let fileDuration = "";

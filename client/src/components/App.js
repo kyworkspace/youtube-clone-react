@@ -8,7 +8,6 @@ import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer"
 import VideoUploadPage from './views/VideoUploadPage/VideoUploadPage';
-
 //null   Anyone Can go inside
 //true   only logged in user can go inside
 //false  logged in user can't go inside
