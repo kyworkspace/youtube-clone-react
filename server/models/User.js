@@ -30,13 +30,16 @@ const userSchema = mongoose.Schema({
         type : Number,
         default : 0
     },
-    image : String,
+    image : {
+        type :String
+    },
     token : {
         type : String
     },
     tokenExp :{ //토큰 유효기간
         type : Number
-    }
+    },
+
 });
 
 userSchema.pre('save',function(next){//몽구스 메서드 'save' 전에 어떤 작업을 한다는뜻

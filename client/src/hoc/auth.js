@@ -28,10 +28,10 @@ export default function (SpecificComponent,option,adminRoute=null){
                     }
                 }else{
                     //로그인 한 상태
-                    if(adminRoute && !response.payload.isAdmin){//admin 유저가 아닐때
+                    if(adminRoute && !response.payload.isAdmin){//admin 유저가 아닌데 어드민 페이지로 가려고 할때
                         props.history.push("/");
                     }else{
-                        if(!option){
+                        if(option===false){
                             props.history.push('/');
                         }
                     }

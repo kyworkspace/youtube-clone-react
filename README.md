@@ -49,8 +49,9 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
 
   ### LandingPage.js settings
   1. 한줄에 4개의 동영상 개시
-  2. 화면 사이즈에 맞게 유동적으로 움직이도록 xs=24(가장작은사이즈의 화면) 라고 볼때 lg={6} 으로 하게 되면 각 칼럼이 6사이즈가 되어 24사이즈의 화면에 4개씩 들어가게 된다.
-  3. md=8은 중간사이즈가 되었을때 3개가 나오도록 한다. 화면이 가작 작아지는 경우는 24로 맞추어 한줄에 한개만 나오도록 한다.
+  2. 한줄은 ant Design 상으로 사이즈가 24 이다.
+  3. 화면 사이즈에 맞게 유동적으로 움직이도록 xs=24(가장작은사이즈의 화면) 라고 볼때 lg={6} 으로 하게 되면 각 칼럼이 6사이즈가 되어 24사이즈의 화면에 4개씩 들어가게 된다.
+  4. md=8은 중간사이즈가 되었을때 3개가 나오도록 한다. 화면이 가작 작아지는 경우는 24로 맞추어 한줄에 한개만 나오도록 한다.
 
   #### get video List
   1. 모델객체.find() ==> 목록 가져옴
@@ -70,4 +71,13 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   duration css는 index.css에 설정해둠
   ![LandingPage_video_List](https://user-images.githubusercontent.com/45280952/106086984-74db0000-6166-11eb-9e47-a476d33893be.png)
 
-  
+  ### Video Detail Page
+
+    <Route exact path="/video/:videoId" component={Auth(VideoDetailPage, null)} />
+
+  각 상세 페이지에는 독립적인 아이디가 들어가야 실행되어야 하므로 path를 저렇게 지정
+  auth에서 option이 null 인 경우 튕겨버리는 부분 === false로 교체  
+  상세 페이지 에서 props.match.params.videoId  
+  이렇게 하면 주소에 쓰인 비디오 아이디를 가져올 수 있음
+
+  게시자 writer 정보가 없으면 화면이 튕기게 되어버려서 아이디 정보를 불러오기 까지 ...Loading 화면이 나오도록 수정함
