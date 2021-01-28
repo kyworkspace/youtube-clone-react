@@ -1,6 +1,9 @@
 import React,{useEffect,useState} from 'react'
 import {Row,Col, List, message, Avatar} from 'antd';
 import Axios from 'axios';
+import SideVideo from './Sections/SideVideo';
+
+
 function VideoDetailPage(props) {
 
     //비디오 아이디는 url에서 가져오면 됨
@@ -46,7 +49,8 @@ function VideoDetailPage(props) {
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
-                    Side Videos
+                    <div style = {{marginTop:'3rem'}}/>
+                        <SideVideo/>
                 </Col>
             </Row>
         )
