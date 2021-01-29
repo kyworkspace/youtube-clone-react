@@ -107,7 +107,9 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   - 접속자가 대상 비디오를 올린 사람을 구독하는지 확인
 
     userFrom : localStorage.getItem('userId')
-  
+
+![pic1](https://user-images.githubusercontent.com/45280952/106249749-19883b00-6256-11eb-8b40-a94b88d7cf7e.png)
+
   - 본인 아이디를 localStorage에 저장해둔 경우 locaStorage에서 getItem으로 ID 정보를 가져올 수 있다.
   - 구독기능은 구독하기, 구독 취소로 나뉜다.
 
