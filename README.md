@@ -94,3 +94,18 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   3. 내가 이 비디오를 업로드한 유저를 구독하는지 가져오기
 
   - 컴포넌트를 만들어서 적용
+
+      <List.Item 
+          actions={[<Subscribe/>]}
+    >
+
+  List.Item으로 들어가는 컴포넌트들을 배열로 감싸줘야 진행됨
+  - 구독자 모델을 만듬 in server Subscriber.js
+  - 구독자 라우트를 만듬 in server subscribe.js
+  - 새로운 라우트를 만들때는 server의 index.js를 항상 확인하여 경로가 유효한지 체크해야함
+  - 구독자 숫자를 가지고 올때 매개변수로 들어간 userTo에 조건에 맞는 subscribe 모델이 배열로 나올텐데, 해당 배열의 길이를 가지고 오면 구독자 숫자를 확인가능하다.
+  - 접속자가 대상 비디오를 올린 사람을 구독하는지 확인
+
+    userFrom : localStorage.getItem('userId')
+  
+  - 본인 아이디를 localStorage에 저장해둔 경우
