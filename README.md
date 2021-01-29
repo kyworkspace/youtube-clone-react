@@ -108,4 +108,9 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
 
     userFrom : localStorage.getItem('userId')
   
-  - 본인 아이디를 localStorage에 저장해둔 경우
+  - 본인 아이디를 localStorage에 저장해둔 경우 locaStorage에서 getItem으로 ID 정보를 가져올 수 있다.
+  - 구독기능은 구독하기, 구독 취소로 나뉜다.
+
+  - findOneAndDelete 는 대상을 컬렉션에서 검색하여 삭제할때 사용
+  - 새로운 데이터를 저장할려고 할때는 새로운 인스턴스를 선언해서 진행
+  - 라우터 정보를 따라서 진행

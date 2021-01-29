@@ -11,7 +11,7 @@ const [Subscribed, setSubscribed] = useState(false);
         let variable ={
             userTo : props.userTo
         }
-        Axios.get("/api/subscribe/subscribeNumber",variable)
+        Axios.post("/api/subscribe/subscribeNumber",variable)
         .then(response=>{
             if(response.data.success){
                 setSubscribeNumber(response.data.subscribeNumber)
@@ -22,7 +22,7 @@ const [Subscribed, setSubscribed] = useState(false);
 
         let subscribedVariable ={ //접속자의 대상 비디오 구독 유무를 확인하는 것이기 때문에 접속자 아이디도 필요
             userTo : props.userTo,
-            userFrom : localStorage.getItem('userId')
+            userFrom : props.userFrom
         }
 
         Axios.post("/api/subscribe/subscribed",subscribedVariable)
@@ -36,7 +36,43 @@ const [Subscribed, setSubscribed] = useState(false);
 
 
     }, [])
+const onSubscribe = () =>{
+    if(props.userTo===props.userFrom){
+        alert("본인 업로드 영상은 구독 할 수 없습니다.");
+        return;
+    }
 
+    let subscribedVariable ={ 
+        userTo : props.userTo,
+        userFrom : props.userFrom
+    }
+
+    // 구독중이면..
+    if(Subscribed){
+        Axios.post("/api/subscribe/unSubscribe",subscribedVariable)
+        .then(response=>{
+            if(response.data.success){
+                console.log(response.data);
+                setSubscribeNumber(SubscribeNumber-1);
+                setSubscribed(!Subscribed);
+            }else{
+                alert("구독 취소를 실패하였습니다.")
+            }
+        })
+
+    //구독중이 아니라면
+    }else{ 
+        Axios.post("/api/subscribe/subscribe",subscribedVariable)
+        .then(response=>{
+            if(response.data.success){
+                setSubscribeNumber(SubscribeNumber+1);
+                setSubscribed(!Subscribed);
+            }else{
+                alert("구독 신청을 실패하였습니다.")
+            }
+        })
+    }
+}
 
     return (
         <div>
@@ -50,7 +86,7 @@ const [Subscribed, setSubscribed] = useState(false);
                     , fontSize : '1rem'
                     , textTransform : 'uppercase'
             }}            
-             onClick >
+             onClick ={onSubscribe}>
                  {SubscribeNumber} {Subscribed ? 'Subscribed':'Subscribe'}
             </button>
         </div>
