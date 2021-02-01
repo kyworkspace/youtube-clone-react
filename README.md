@@ -118,3 +118,36 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   - 라우터 정보를 따라서 진행
 
   ### 구독 페이지 만들기
+  - LoginPage를 복사해서 만듬. ./componenet/views/SubscriptionPage.js
+  - 접속자 정보를 가져옴
+  - 접속자가 구독하고 있는 구독대상 리스트를 가져옴
+  - 구독대상 ID 리스트를 순회하며 비디오 DB에 있는 정보를 가져와서 뿌림
+  -  Subscribe.js는 모델, userTo(구독대상), userFrom(구독자) 2개로 분류
+  -  subscribe.js은 라우터, 구독자 반환 후 배열 select은 안에서 참고
+  - video.js 라우터 참고 
+
+    router.post('/getSubscriptionVideos',(req,res)=>{
+    //자신이 구독하는 사람들을 찾는다.
+    Subscriber.find({userFrom : req.body.userFrom})
+    .exec((err,subscriberInfo)=>{
+        if(err) return res.status(400).json({success:false,err})
+
+        let subscribedUser = []; //구독하고 있는 사람 목록
+        subscriberInfo.map((subscriber,i)=>{
+            subscribedUser.push(subscriber.userTo);
+        })
+
+        //찾은 사람들의 비디오 목록을 가져온다
+        //몽고 DB가 가진 메서드 $in을 사용하여 배열에 속해 있는 값을 순회하여 조건이 일치하는 것을 가져옴
+        Video.find({writer:{$in : subscribedUser}})
+        .populate("writer")
+        .exec((err,videos)=>{
+            if(err) return res.status(400).send(err);
+            res.status(200).json({success:true,videos})
+        })
+        
+      })
+    
+    })
+
+  위 코드 참고
