@@ -124,12 +124,12 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   - 구독대상 ID 리스트를 순회하며 비디오 DB에 있는 정보를 가져와서 뿌림
   -  Subscribe.js는 모델, userTo(구독대상), userFrom(구독자) 2개로 분류
   -  subscribe.js은 라우터, 구독자 반환 후 배열 select은 안에서 참고
-  - video.js 라우터 참고 
+  - video.js 라우터 참고
 
     router.post('/getSubscriptionVideos',(req,res)=>{
-    //자신이 구독하는 사람들을 찾는다.
-    Subscriber.find({userFrom : req.body.userFrom})
-    .exec((err,subscriberInfo)=>{
+      //자신이 구독하는 사람들을 찾는다.
+      Subscriber.find({userFrom : req.body.userFrom})
+      .exec((err,subscriberInfo)=>{
         if(err) return res.status(400).json({success:false,err})
 
         let subscribedUser = []; //구독하고 있는 사람 목록
