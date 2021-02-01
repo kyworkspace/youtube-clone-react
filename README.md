@@ -156,3 +156,10 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   - save를 할때는 populate를 사용할 수 없기 때문에
   - 모델에서 아이디를 찾아서 해당 정보를 가져올 수 밖에 없음
   - comment의 writer 정보의 _id에 대한 정보를 가져옴
+  #### Comment by SingleComment
+  - SingleComment Component를 Comment에서 임포트하여 사용함
+  - 대댓글이 올라갈때는 일반 댓글과 비교하여 responseTo 객체가 하나 더 들어감
+  - Detail Page에서 표출할때는 일반 댓글만 나오도록(!responseTo) 실행
+  #### Callback Function
+  - Detail 페이지에서 새로운 코멘트가 추가될 경우 SetComments를 받아서 기존 Comment에 새로운 Comment가 붙을수 있도록 설정
+  

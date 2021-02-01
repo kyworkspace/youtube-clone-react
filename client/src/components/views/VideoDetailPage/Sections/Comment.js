@@ -5,7 +5,7 @@ import SingleComment from './SingleComment';
 
 function Comment(props) {
     const user = useSelector(state=>state.user);
-    const videoId = props.videoId; //URL에서 비디오 ID 가져옴
+    const {postId} = props; //URL에서 비디오 ID 가져옴
 
     const [commentValue, setcommentValue] = useState("");
 
@@ -18,13 +18,14 @@ function Comment(props) {
         const variable={
             content : commentValue,
             writer : user.userData._id,
-            postId : videoId
+            postId : postId
         }
 
         Axios.post('/api/comment/saveComment',variable)
         .then(response=>{
             if(response.data.success){
-                console.log(response.data);
+                props.refreshFunction(response.data.result);
+                setcommentValue("");
             }else{
                 alert('댓글 저장 실패, 다시시도 PLZ')
             }
@@ -37,7 +38,14 @@ function Comment(props) {
             <p>Replies</p>
             <hr/>
             {/* Comment Lists */}
-            <SingleComment/>
+            {props.commentLists && props.commentLists.map((comment,index)=>(
+                //첫번째 뎁스가 있는것만 출력
+                (!comment.responseTo && 
+                    <SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={postId} />
+                    )
+                
+            ))}
+            
             {/* Root Comment Form */}
 
             <form style ={{display:'flex'}} onSubmit={onSubmit}>

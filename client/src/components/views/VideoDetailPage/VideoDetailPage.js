@@ -15,7 +15,7 @@ function VideoDetailPage(props) {
     }
 
     const [VideoDetail, setVideoDetail] = useState([])
-
+    const [Comments, setComments] = useState([])
     useEffect(() => {
 
         Axios.post('/api/video/getVideoDetail',variable)
@@ -27,8 +27,25 @@ function VideoDetailPage(props) {
                 message.error("비디오 정보를 가져오는데 실패하였습니다.")
             }
         })
+        //댓글 정보 가져옴
+        Axios.post('/api/comment/getComments',variable)
+        .then(response=>{
+            if(response.data.success){
+                setComments(response.data.comments);
+                console.log(response.data);
+            }else{
+                alert('코멘트 정보를 가져오는데 실패하였습니다.')
+            }
+        })
         
     }, [])
+
+    // 댓글쓰면 리로딩 되도록
+    const refreshFunction = (newComment) => {
+        //기존 코멘트에 새로운 코멘트를 이어 붙임
+        setComments(Comments.concat(newComment));
+    }
+
     if(VideoDetail.writer){
         //포스트를 올린사람과 접속자가 같으면 버튼 숨김
         const subscribeButton = VideoDetail.writer._id !== localStorage.getItem('userId') && <Subscribe userTo={VideoDetail.writer._id} userFrom ={localStorage.getItem('userId')}/>
@@ -51,7 +68,7 @@ function VideoDetailPage(props) {
 
                         {/* comments 댓글 */}
                         
-                        <Comment postId={videoId}/>
+                        <Comment refreshFunction = {refreshFunction} commentLists={Comments} postId={videoId}/>
                         
                     </div>
                 </Col>
