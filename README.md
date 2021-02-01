@@ -126,21 +126,21 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   -  subscribe.js은 라우터, 구독자 반환 후 배열 select은 안에서 참고
   - video.js 라우터 참고
 
-    router.post('/getSubscriptionVideos',(req,res)=>{
-      Subscriber.find({userFrom : req.body.userFrom})
-      .exec((err,subscriberInfo)=>{
-        if(err) return res.status(400).json({success:false,err})
-        let subscribedUser = []; //구독하고 있는 사람 목록
-        subscriberInfo.map((subscriber,i)=>{
-            subscribedUser.push(subscriber.userTo);
-        })
-        Video.find({writer:{$in : subscribedUser}})
-        .populate("writer")
-        .exec((err,videos)=>{
-            if(err) return res.status(400).send(err);
-            res.status(200).json({success:true,videos})
+      router.post('/getSubscriptionVideos',(req,res)=>{
+        Subscriber.find({userFrom : req.body.userFrom})
+        .exec((err,subscriberInfo)=>{
+          if(err) return res.status(400).json({success:false,err})
+          let subscribedUser = []; //구독하고 있는 사람 목록
+          subscriberInfo.map((subscriber,i)=>{
+              subscribedUser.push(subscriber.userTo);
+          })
+          Video.find({writer:{$in : subscribedUser}})
+          .populate("writer")
+          .exec((err,videos)=>{
+              if(err) return res.status(400).send(err);
+              res.status(200).json({success:true,videos})
+          })
         })
       })
-    })
 
   위 코드 참고
