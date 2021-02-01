@@ -23,7 +23,7 @@ function SideVideo() {
         var seconds = Math.floor((item.duration - minutes*60));
 
         return (
-        <div style={{display:'flex', marginBottom:'1rem', padding : '0 2rem'}}>
+        <div style={{display:'flex', marginBottom:'1rem', padding : '0 2rem'}} key={item._id}>
             <div style={{width : '40%', marginBottom : '1rem', marginRight:'1rem'}}>
                 <a href>
                     <img style={{width:'100%'}} src={`http://localhost:5000/${item.thumbnail}`}/>

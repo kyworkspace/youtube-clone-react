@@ -144,3 +144,15 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
       })
 
   위 코드 참고
+  ### 댓글기능
+  #### ./component/views/Section/Comment.js
+  - 댓글의 RootComponent 안에 SingleComponent를 무한정 생성할수 있도록 함
+  - 댓글쓴 사람의 ID 정보는 리덕스 store를 통해 가져옴
+  - 글쓴이의 정보는 store에서 가져오도록 함
+  - 비디오의 정보는 props를 통해 부모컴포넌트로 부터 가져옴
+
+  #### Comment Routes in Sever
+  - 서버에 저장할때 작성자의 모든 정보를 가져와야 이미지, 아이디 등을 알 수 있음.
+  - save를 할때는 populate를 사용할 수 없기 때문에
+  - 모델에서 아이디를 찾아서 해당 정보를 가져올 수 밖에 없음
+  - comment의 writer 정보의 _id에 대한 정보를 가져옴
