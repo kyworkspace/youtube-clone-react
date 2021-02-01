@@ -5,7 +5,7 @@ import Axios from 'axios';
 
 function SingleComment(props) {
     const user = useSelector(state=>state.user);
-    const videoId = props.videoId; //URL에서 비디오 ID 가져옴
+    const {postId} = props; 
     const [OpenReply, setOpenReply] = useState(false);
     const [CommentValue, setCommentValue] = useState("");
     const onClickReplyOpen = () =>{
@@ -20,7 +20,7 @@ function SingleComment(props) {
         const variable={
             content : CommentValue,
             writer : user.userData._id,
-            postId : videoId,
+            postId : postId,
             responseTo : props.comment._id,//대댓글은 댓글을 쓰는 대상이 필요
         }
 
@@ -29,6 +29,7 @@ function SingleComment(props) {
             if(response.data.success){
                 props.refreshFunction(response.data.result);
                 setCommentValue("");
+                setOpenReply(!OpenReply);
             }else{
                 alert('댓글 저장 실패, 다시시도 PLZ')
             }

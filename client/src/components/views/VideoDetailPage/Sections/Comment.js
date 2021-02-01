@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
+import ReplyComment from './ReplyComment';
 import SingleComment from './SingleComment';
 
 function Comment(props) {
@@ -41,7 +42,10 @@ function Comment(props) {
             {props.commentLists && props.commentLists.map((comment,index)=>(
                 //첫번째 뎁스가 있는것만 출력
                 (!comment.responseTo && 
-                    <SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={postId} />
+                    <>
+                        <SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={postId} />
+                        <ReplyComment refreshFunction={props.refreshFunction} commentLists={props.commentLists} parentCommentId={comment._id} postId={postId} />
+                    </>
                     )
                 
             ))}

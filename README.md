@@ -162,4 +162,9 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   - Detail Page에서 표출할때는 일반 댓글만 나오도록(!responseTo) 실행
   #### Callback Function
   - Detail 페이지에서 새로운 코멘트가 추가될 경우 SetComments를 받아서 기존 Comment에 새로운 Comment가 붙을수 있도록 설정
+  #### Reply Component
+  - 부모코멘트와 같은 responseTo를 가진 코멘트만 출력
+  - 입력되는 코멘트의 뎁스에 따라 무한정 입력되는 것이기 때문에 Comment에서 실행되는 SingleComment와 ReplyComment의 설정은 같아야한다.
+  - 자식 코멘트에서 입력되는 값이 즉각적으로 변동하지 않았던 것은 useEffect의 설정 때문이다.
+  - useEffect의 두번째 매개변수의 값에 따라 rerendering이 결정된다. (기본값은 비어있다.)
   
