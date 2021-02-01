@@ -127,7 +127,6 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   - video.js 라우터 참고
 
     router.post('/getSubscriptionVideos',(req,res)=>{
-      //자신이 구독하는 사람들을 찾는다.
       Subscriber.find({userFrom : req.body.userFrom})
       .exec((err,subscriberInfo)=>{
         if(err) return res.status(400).json({success:false,err})
@@ -135,8 +134,6 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
         subscriberInfo.map((subscriber,i)=>{
             subscribedUser.push(subscriber.userTo);
         })
-        //찾은 사람들의 비디오 목록을 가져온다
-        //몽고 DB가 가진 메서드 $in을 사용하여 배열에 속해 있는 값을 순회하여 조건이 일치하는 것을 가져옴
         Video.find({writer:{$in : subscribedUser}})
         .populate("writer")
         .exec((err,videos)=>{
