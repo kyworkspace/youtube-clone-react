@@ -140,21 +140,29 @@ List.Item으로 들어가는 컴포넌트들을 배열로 감싸줘야 진행됨
 - subscribe.js은 라우터, 구독자 반환 후 배열 select은 안에서 참고
 - video.js 라우터 참고
 
-router.post('/getSubscriptionVideos',(req,res)=>{
-Subscriber.find({userFrom : req.body.userFrom})
-.exec((err,subscriberInfo)=>{
-if(err) return res.status(400).json({success:false,err})
-let subscribedUser = []; //구독하고 있는 사람 목록
-subscriberInfo.map((subscriber,i)=>{
-subscribedUser.push(subscriber.userTo);
-})
-Video.find({writer:{$in : subscribedUser}})
-.populate("writer")
-.exec((err,videos)=>{
-if(err) return res.status(400).send(err);
-res.status(200).json({success:true,videos})
-})
-})
+  router.post('/getSubscriptionVideos',(req,res)=>{
+  //자신이 구독하는 사람들을 찾는다.
+  Subscriber.find({userFrom : req.body.userFrom})
+  .exec((err,subscriberInfo)=>{
+  if(err) return res.status(400).json({success:false,err})
+
+        let subscribedUser = []; //구독하고 있는 사람 목록
+        subscriberInfo.map((subscriber,i)=>{
+            subscribedUser.push(subscriber.userTo);
+        })
+
+        //찾은 사람들의 비디오 목록을 가져온다
+        //몽고 DB가 가진 메서드 $in을 사용하여 배열에 속해 있는 값을 순회하여 조건이 일치하는 것을 가져옴
+        Video.find({writer:{$in : subscribedUser}})
+        .populate("writer")
+        .exec((err,videos)=>{
+            if(err) return res.status(400).send(err);
+            res.status(200).json({success:true,videos})
+        })
+
+
+  })
+
 })
 
 위 코드 참고
