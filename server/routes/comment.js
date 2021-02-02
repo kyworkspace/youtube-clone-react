@@ -43,4 +43,12 @@ router.post('/deleteComment',(req,res)=>{
 })
 
 
+router.post('/updateComment',(req,res)=>{
+    Comment.updateOne({_id:req.body.commentId},{$set:{content:req.body.content}},function(err,res){
+        if(err) return res.status(400).json({success:false,err});
+    })
+    res.status(200).json({success:true});
+})
+
+
 module.exports = router;

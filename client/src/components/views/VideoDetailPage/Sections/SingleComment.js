@@ -10,7 +10,10 @@ function SingleComment(props) {
     const {postId} = props; 
     const [OpenReply, setOpenReply] = useState(false);
     const [CommentValue, setCommentValue] = useState("");
+    const [CommentUpdate, setCommentUpdate] = useState(false);
+    const [CommentUpdateContent, setCommentUpdateContent] = useState(props.comment.content)
     const onClickReplyOpen = () =>{
+        setCommentValue("");
         setOpenReply(!OpenReply);
     }
     const onHandelChange = (e) =>{
@@ -38,8 +41,32 @@ function SingleComment(props) {
             }
         })
     }
+    const onUpdateHandler =(e)=>{
+        setCommentUpdateContent(e.currentTarget.value);
+    }
+    const onUpdateSubmit = (e)=>{ //댓글 수정하기
+        e.preventDefault();
+
+        const variable={
+            content : CommentUpdateContent,
+            commentId : props.comment._id
+        }
+
+        Axios.post("/api/comment/updateComment",variable)
+        .then(response=>{
+            if(response.data.success){
+                props.commentRefresh();
+                setCommentUpdate(!CommentUpdate)
+            }else{
+                alert("댓글 수정에 실패했습니다.")
+            }
+        })
+    }
+    const commentUpdate =()=>{
+        setCommentUpdate(!CommentUpdate);
+    }
     const actions = [
-        <CommentUpdateDelete writerId={props.comment.writer._id} userId={localStorage.getItem("userId")} commentId={props.comment._id} commentRefresh={props.commentRefresh}/>
+        <CommentUpdateDelete writerId={props.comment.writer._id} userId={localStorage.getItem("userId")} commentId={props.comment._id} commentRefresh={props.commentRefresh} commentUpdate={commentUpdate}/>
     ]
 
     return (
@@ -58,7 +85,20 @@ function SingleComment(props) {
                         title = {props.comment.writer.name}
                         avatar={<Avatar src={props.comment.writer.image} />}
                         description={<p>
-                            {props.comment.content}<br/>
+                            {CommentUpdate ? 
+                                <form style ={{display:'flex'}} onSubmit={onUpdateSubmit}>
+                                    <textarea
+                                    style={{width:'100%',borderRadius:'5px'}}
+                                    onChange={onUpdateHandler}
+                                    value = {CommentUpdateContent}
+                                    >
+                                    </textarea>
+                                    <br/>
+                                    <button style={{width : '20%', height:'52px'}} onClick={onUpdateSubmit}>수정</button>
+                                </form> 
+                                :   props.comment.content
+                                }
+                            <br/>
                             <LikeDislikes userId={localStorage.getItem('userId')} commentId={props.comment._id}/><br/>
                             <span style={{cursor:"pointer"}} onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply To</span>
                             </p>}

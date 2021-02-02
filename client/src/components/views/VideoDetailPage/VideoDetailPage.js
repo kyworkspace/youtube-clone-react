@@ -74,7 +74,6 @@ function VideoDetailPage(props) {
                         </List.Item>
 
                         {/* comments 댓글 */}
-                        
                         <Comment 
                             // refreshFunction = {refreshFunction}
                             commentRefresh={commentRefresh}

@@ -11,7 +11,7 @@ function CommentUpdateDelete(props) {
 
     let variable = props;
     const onCommentEditHandler =() =>{
-        
+        props.commentUpdate();
     }
     const onCommentDeleteHandler =()=>{
         if(window.confirm("댓글을 삭제하시겠습니까?")){
