@@ -114,7 +114,7 @@ function LikeDislikes(props) {
 
     return (
         <div>
-            <span key="comment-basic-like">
+            <span >
                 <Tooltip title="좋아요">
                     <Icon type="like"
                     theme={LikeAction ==='liked' ? "filled" : 'outlined'}
@@ -124,7 +124,7 @@ function LikeDislikes(props) {
                 <span style={{paddingLeft:'8px', cursor:'auto'}}>{Likes}</span>
             </span>
             <span style={{paddingLeft:'2px', paddingRight:'2px'}}/>
-            <span key="comment-basic-like">
+            <span >
                 <Tooltip title="싫어요">
                     <Icon type="dislike"
                     theme={DislikeAction ==='disliked' ? "filled" : 'outlined'}

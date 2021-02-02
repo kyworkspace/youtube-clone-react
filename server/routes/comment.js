@@ -35,5 +35,12 @@ router.post('/getComments',(req,res)=>{
 
 })
 
+router.post('/deleteComment',(req,res)=>{
+    Comment.updateOne({_id:req.body.commentId},{$set:{content:"작성자에 의해 삭제된 댓글입니다."}},function(err,res){
+        if(err) return res.status(400).json({success:false,err});
+    })
+    res.status(200).json({success:true});
+})
+
 
 module.exports = router;

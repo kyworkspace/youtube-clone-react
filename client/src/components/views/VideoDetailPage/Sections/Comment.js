@@ -25,7 +25,8 @@ function Comment(props) {
         Axios.post('/api/comment/saveComment',variable)
         .then(response=>{
             if(response.data.success){
-                props.refreshFunction(response.data.result);
+                //props.refreshFunction(response.data.result);
+                props.commentRefresh()
                 setcommentValue("");
             }else{
                 alert('댓글 저장 실패, 다시시도 PLZ')
@@ -43,8 +44,20 @@ function Comment(props) {
                 //첫번째 뎁스가 있는것만 출력
                 (!comment.responseTo && 
                     <>
-                        <SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={postId} />
-                        <ReplyComment refreshFunction={props.refreshFunction} commentLists={props.commentLists} parentCommentId={comment._id} postId={postId} />
+                        <SingleComment 
+                            key = {comment.id}
+                            // refreshFunction={props.refreshFunction} 
+                            commentRefresh={props.commentRefresh}
+                            comment={comment} postId={postId} 
+                            deleteCommentFunction={props.deleteCommentFunction}
+                        />
+                        <ReplyComment 
+                            key = {comment.id}
+                            // refreshFunction={props.refreshFunction} 
+                            commentRefresh={props.commentRefresh}
+                            commentLists={props.commentLists} 
+                            parentCommentId={comment._id} postId={postId} 
+                        />
                     </>
                     )
                 

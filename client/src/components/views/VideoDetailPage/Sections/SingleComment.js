@@ -29,7 +29,8 @@ function SingleComment(props) {
         Axios.post('/api/comment/saveComment',variable)
         .then(response=>{
             if(response.data.success){
-                props.refreshFunction(response.data.result);
+                //props.refreshFunction(response.data.result);
+                props.commentRefresh();
                 setCommentValue("");
                 setOpenReply(!OpenReply);
             }else{
@@ -38,9 +39,7 @@ function SingleComment(props) {
         })
     }
     const actions = [
-        
-        <LikeDislikes userId={localStorage.getItem('userId')} commentId={props.comment._id}/>,
-        <span onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply To</span>
+        <CommentUpdateDelete writerId={props.comment.writer._id} userId={localStorage.getItem("userId")} commentId={props.comment._id} commentRefresh={props.commentRefresh}/>
     ]
 
     return (
@@ -52,13 +51,17 @@ function SingleComment(props) {
             content={<p>{props.comment.content}</p>}
             /> */}
             <List.Item
-            actions={[<CommentUpdateDelete userId={localStorage.getItem('userId')} commentId={props.comment._id}/>]}
+            actions={actions}
             >
                      <List.Item.Meta
                         actions={actions}
                         title = {props.comment.writer.name}
-                        avatar={<Avatar src={props.comment.writer.image} slt/>}
-                        description={<p>{props.comment.content}</p>}
+                        avatar={<Avatar src={props.comment.writer.image} />}
+                        description={<p>
+                            {props.comment.content}<br/>
+                            <LikeDislikes userId={localStorage.getItem('userId')} commentId={props.comment._id}/><br/>
+                            <span style={{cursor:"pointer"}} onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply To</span>
+                            </p>}
                     />
             </List.Item>
             {OpenReply && //OpenReply가 true일때만 보이도록

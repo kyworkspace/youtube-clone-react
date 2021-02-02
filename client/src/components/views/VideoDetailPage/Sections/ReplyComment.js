@@ -8,8 +8,18 @@ function ReplyComment(props) {
             <>
             {comment.responseTo === props.parentCommentId && 
                 <div style={{width:'80%' , marginLeft: '40px'}}>
-                    <SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={props.postId} />
-                    <ReplyComment refreshFunction={props.refreshFunction} commentLists={props.commentLists} postId={props.postId} parentCommentId={comment._id} />
+                    <SingleComment 
+                    key = {comment._id}
+                    // refreshFunction={props.refreshFunction} 
+                    commentRefresh={props.commentRefresh}
+                    comment={comment} postId={props.postId} />
+                    <ReplyComment 
+                    key = {comment._id}
+                    // refreshFunction={props.refreshFunction} 
+                    commentRefresh={props.commentRefresh}
+                    commentLists={props.commentLists} 
+                    postId={props.postId} 
+                    parentCommentId={comment._id} />
                 </div>
             }
             </>

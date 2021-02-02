@@ -17,12 +17,12 @@ function VideoDetailPage(props) {
 
     const [VideoDetail, setVideoDetail] = useState([])
     const [Comments, setComments] = useState([])
+    const [CommentFlag, setCommentFlag] = useState(false)
     useEffect(() => {
 
         Axios.post('/api/video/getVideoDetail',variable)
         .then(response=>{
             if(response.data.success){
-                console.log(response.data.videoDetail);
                 setVideoDetail(response.data.videoDetail)
             }else{
                 message.error("비디오 정보를 가져오는데 실패하였습니다.")
@@ -32,20 +32,25 @@ function VideoDetailPage(props) {
         Axios.post('/api/comment/getComments',variable)
         .then(response=>{
             if(response.data.success){
-                console.log(response.data);
                 setComments(response.data.comments);
             }else{
                 alert('코멘트 정보를 가져오는데 실패하였습니다.')
             }
         })
         
-    }, [])
+    }, [CommentFlag])
 
-    // 댓글쓰면 리로딩 되도록
-    const refreshFunction = (newComment) => {
-        //기존 코멘트에 새로운 코멘트를 이어 붙임
-        console.log(newComment)
-        setComments(Comments.concat(newComment));
+    // // 댓글쓰면 리로딩 되도록
+    // const refreshFunction = (newComment) => {
+    //     //기존 코멘트에 새로운 코멘트를 이어 붙임
+    //     setComments(Comments.concat(newComment));
+    // }
+    const commentRefresh =() =>{
+        setCommentFlag(!CommentFlag);
+    }
+    const deleteCommentFunction =(deleteComment)=>{
+        let idx = Comments.indexOf(deleteComment);
+        setComments(Comments.splice(idx,1));
     }
 
     if(VideoDetail.writer){
@@ -70,7 +75,13 @@ function VideoDetailPage(props) {
 
                         {/* comments 댓글 */}
                         
-                        <Comment refreshFunction = {refreshFunction} commentLists={Comments} postId={videoId}/>
+                        <Comment 
+                            // refreshFunction = {refreshFunction}
+                            commentRefresh={commentRefresh}
+                            commentLists={Comments} 
+                            postId={videoId} 
+                            deleteCommentFunction={deleteCommentFunction}
+                        />
                         
                     </div>
                 </Col>
