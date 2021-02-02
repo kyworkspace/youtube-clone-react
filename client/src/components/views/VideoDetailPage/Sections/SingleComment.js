@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import {Comment, Avatar,Button,Input} from 'antd'
+import {Comment, Avatar,Button,Input,List,Card} from 'antd'
 import { useSelector } from 'react-redux';
 import Axios from 'axios';
+import LikeDislikes from './LikeDislikes';
+import CommentUpdateDelete from './CommentUpdateDelete';
 
 function SingleComment(props) {
     const user = useSelector(state=>state.user);
@@ -36,17 +38,29 @@ function SingleComment(props) {
         })
     }
     const actions = [
+        
+        <LikeDislikes userId={localStorage.getItem('userId')} commentId={props.comment._id}/>,
         <span onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply To</span>
     ]
 
     return (
         <div>
-            <Comment
+            {/* <Comment
             actions={actions}
             author = {props.comment.writer.name}
             avatar={<Avatar src={props.comment.writer.image} slt/>}
             content={<p>{props.comment.content}</p>}
-            />
+            /> */}
+            <List.Item
+            actions={[<CommentUpdateDelete userId={localStorage.getItem('userId')} commentId={props.comment._id}/>]}
+            >
+                     <List.Item.Meta
+                        actions={actions}
+                        title = {props.comment.writer.name}
+                        avatar={<Avatar src={props.comment.writer.image} slt/>}
+                        description={<p>{props.comment.content}</p>}
+                    />
+            </List.Item>
             {OpenReply && //OpenReply가 true일때만 보이도록
                 <form style ={{display:'flex'}} onSubmit={onSubmit}>
                     <textarea

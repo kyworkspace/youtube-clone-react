@@ -167,4 +167,8 @@ token코드가 내가 만든건 x_auth였으나 참고된 파일은 w_auth 였�
   - 입력되는 코멘트의 뎁스에 따라 무한정 입력되는 것이기 때문에 Comment에서 실행되는 SingleComment와 ReplyComment의 설정은 같아야한다.
   - 자식 코멘트에서 입력되는 값이 즉각적으로 변동하지 않았던 것은 useEffect의 설정 때문이다.
   - useEffect의 두번째 매개변수의 값에 따라 rerendering이 결정된다. (기본값은 비어있다.)
-  
+
+  ### 좋아요, 싫어요
+  - 각 모델 생성 (Like.js, Dislike.js)
+  - 컴포넌트 생성 LikeDislikes
+  - 비디오와 댓글에 관하여 각각의 컴포넌트로 적용되도록 분리
