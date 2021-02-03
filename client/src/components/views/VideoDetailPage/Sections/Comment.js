@@ -15,6 +15,11 @@ function Comment(props) {
     }
     const onSubmit = (e) =>{
         e.preventDefault();
+        if(user.userData.isAuth === false){
+            alert("로그인이 필요합니다.")
+            props.history.push("/login")
+            return false;
+        }
 
         const variable={
             content : commentValue,

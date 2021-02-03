@@ -20,6 +20,11 @@ function SingleComment(props) {
         setCommentValue(e.currentTarget.value);
     }
     const onSubmit = (e)=>{
+        if(user.userData.isAuth === false){
+            alert("로그인이 필요합니다.")
+            props.history.push("/login")
+            return false;
+        }
         e.preventDefault();
 
         const variable={

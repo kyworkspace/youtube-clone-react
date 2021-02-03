@@ -61,7 +61,7 @@ function VideoDetailPage(props) {
             <Row gutter={[16,16]}>
                 <Col lg={18} xs={24}>
                     <div style={{width:'100%', padding:'3rem 4rem'}}>
-                        <video style={{width:'100%'}} src={`http://localhost:5000/${VideoDetail.filePath}`}/>
+                        <video style={{width:'100%'}} src={`http://localhost:5000/${VideoDetail.filePath}`} controls/>
 
                         <List.Item 
                             actions={[<LikeDislikes Video userId={localStorage.getItem('userId')} videoId ={videoId}/>,subscribeButton]}
