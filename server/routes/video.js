@@ -112,7 +112,7 @@ router.post('/thumbnail',(req,res)=>{
         //console.log(metadata.format.duration);
         fileDuration = metadata.format.duration;
     })
-    
+    console.log(req.body)
     // 썸네일 생성
     ffmpeg(req.body.url) //클라이언트에서 들어온 비디오저장 경로
     .on('filenames',function(filenames){ //비디오 썸네일 파일명 셍성
@@ -133,11 +133,11 @@ router.post('/thumbnail',(req,res)=>{
         console.error(err);
         return res.json({success:false,err})
     })
-    .screenshot({ //
+    .screenshots({ //
         count : 3, //3개의 썸네일 가능
         folder : "uploads/thumbnails",//업로드 경로
         size : '320x240', //사이즈
-        filname : 'thumbnail-%b.png' //파일명 %b는 extension을 뺀 파일 네임
+        filename : 'thumbnail-%b.png' //파일명 %b는 extension을 뺀 파일 네임
     })
 })
 
